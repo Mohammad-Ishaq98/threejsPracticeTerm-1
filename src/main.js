@@ -34,7 +34,7 @@ window.addEventListener('resize', handleResize);
 
 handleResize();
 
-//constrol
+//controls
 
 const controls = new OrbitControls( camera, renderer.domElement );
 
@@ -47,21 +47,21 @@ const boxmaterial = new THREE.MeshBasicMaterial({color : 0xffffff, wireframe: tr
 const boxMesh = new THREE.Mesh(boxGeometry, boxmaterial);
 scene.add( boxMesh );
 boxMesh.position.y = -2;
-//camera.position.z = 3; 
+camera.position.z = 3; 
 
 
 // texture box geometry
 
 const textureBox = new THREE.BoxGeometry(2,2,2);
 const textureLoader = new THREE.TextureLoader;
-const texturedoubleSide = THREE.DoubleSide
+//const texturedoubleSide = THREE.DoubleSide
 const textureBoxMulti = [
-    new THREE.MeshLambertMaterial({ map : textureLoader.load(side1), side : texturedoubleSide }),
-    new THREE.MeshLambertMaterial({ map : textureLoader.load(side2), side : texturedoubleSide }),
-    new THREE.MeshLambertMaterial({ map : textureLoader.load(side3), side : texturedoubleSide }),
-    new THREE.MeshLambertMaterial({ map : textureLoader.load(side4), side : texturedoubleSide }),
-    new THREE.MeshLambertMaterial({ map : textureLoader.load(side1), side : texturedoubleSide }),
-    new THREE.MeshLambertMaterial({ map : textureLoader.load(side2), side : texturedoubleSide })
+    new THREE.MeshLambertMaterial({ map : textureLoader.load(side1), side : THREE.DoubleSide }),
+    new THREE.MeshLambertMaterial({ map : textureLoader.load(side2), side : THREE.DoubleSide }),
+    new THREE.MeshLambertMaterial({ map : textureLoader.load(side3), side : THREE.DoubleSide }),
+    new THREE.MeshLambertMaterial({ map : textureLoader.load(side4), side : THREE.DoubleSide }),
+    new THREE.MeshLambertMaterial({ map : textureLoader.load(side1), side : THREE.DoubleSide }),
+    new THREE.MeshLambertMaterial({ map : textureLoader.load(side2), side : THREE.DoubleSide })
 ]
 
 const textureBoxMesh = new THREE.Mesh(textureBox, textureBoxMulti);
@@ -73,7 +73,7 @@ scene.add(textureBoxMesh);
 const floorGeometry = new THREE.BoxGeometry(10,1,10);
 const floorMaterial = new THREE.MeshLambertMaterial({ 
     map : textureLoader.load(floor), 
-    side :texturedoubleSide 
+    side :THREE.DoubleSide 
 })
 const floorMesh = new THREE.Mesh(floorGeometry, floorMaterial);
 scene.add( floorMesh );
@@ -83,7 +83,7 @@ floorMesh.position.y = -5;
 const leftWallGeometry = new THREE.BoxGeometry(1,10,10);
 const leftWallMaterial = new THREE.MeshLambertMaterial({ 
     map : textureLoader.load(wall), 
-    side :texturedoubleSide 
+    side :THREE.DoubleSide 
 });
 const leftWallMesh = new THREE.Mesh(leftWallGeometry, leftWallMaterial);
 scene.add( leftWallMesh );
@@ -93,7 +93,7 @@ leftWallMesh.position.x = -5;
 const rightWallGeometry = new THREE.BoxGeometry(1,10,10);
 const rightWallMaterial = new THREE.MeshLambertMaterial({ 
     map : textureLoader.load(wall), 
-    side :texturedoubleSide 
+    side :THREE.DoubleSide 
 });
 const rightWallMesh = new THREE.Mesh(rightWallGeometry, rightWallMaterial);
 scene.add( rightWallMesh );
@@ -103,7 +103,7 @@ rightWallMesh.position.x = 5;
 const ceillingGeometry = new THREE.BoxGeometry(10,1,10);
 const ceillingMaterial = new THREE.MeshLambertMaterial({
     map : textureLoader.load(ceilling),
-    side : texturedoubleSide
+    side : THREE.DoubleSide
 });
 const ceillingMesh = new THREE.Mesh(ceillingGeometry, ceillingMaterial);
 scene.add (ceillingMesh);
@@ -112,9 +112,10 @@ ceillingMesh.position.y = 5;
 // ***************** home *****************
 
 //ambient light
-
 const ambient = new THREE.AmbientLight(0xffffff, 1.5);
 scene.add(ambient);
+
+
 
 
 //box geo animation
@@ -122,6 +123,8 @@ function animate() {
 	requestAnimationFrame( animate );
     boxMesh.rotation.x += 0.001;
     boxMesh.rotation.y += 0.005;
+    
+
 	renderer.render( scene, camera );
 }
 animate();
