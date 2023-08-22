@@ -1,14 +1,14 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 
-import side1 from './img/Image Background Orange Minimal Phone Wallpaper (1).jpg';
-import side2 from './img/Image Background Orange Minimal Phone Wallpaper (2).jpg';
-import side3 from './img/Image Background Orange Minimal Phone Wallpaper (3).jpg';
-import side4 from './img/Image Background Orange Minimal Phone Wallpaper.jpg';
-
-import floor from './img/Ground.jpg';
-import wall from './img/Wall.jpg';
-import ceilling from './img/Ceiling.jpg'
+import side1 from '../assets/img/Image Background Orange Minimal Phone Wallpaper (1).jpg';
+import side2 from '../assets/img/Image Background Orange Minimal Phone Wallpaper (2).jpg';
+import side3 from '../assets/img/Image Background Orange Minimal Phone Wallpaper (3).jpg';
+import side4 from '../assets/img/Image Background Orange Minimal Phone Wallpaper.jpg';
+import floor from '../assets/img/Ground.jpg';
+import wall from '../assets/img/Wall.jpg';
+import ceilling from '../assets/img/Ceiling.jpg'
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -39,6 +39,17 @@ handleResize();
 const controls = new OrbitControls( camera, renderer.domElement );
 
 controls.update();
+
+//loader 
+const loader = new THREE.ObjectLoader();
+
+loader.load(
+    "../assets/source/model.gltf",
+
+    function ( obj ) {
+        scene.load( obj )
+    }
+)
 
 //box geometry
 
