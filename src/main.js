@@ -1,6 +1,10 @@
 import * as THREE from 'three';
+
+//Frame per second 
+(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='https://mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
+
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
+import { GLTFLoader  } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import side1 from '../assets/img/Image Background Orange Minimal Phone Wallpaper (1).jpg';
 import side2 from '../assets/img/Image Background Orange Minimal Phone Wallpaper (2).jpg';
@@ -41,14 +45,23 @@ const controls = new OrbitControls( camera, renderer.domElement );
 controls.update();
 
 //loader 
-const loader = new THREE.ObjectLoader();
+const loader = new GLTFLoader();
 
 loader.load(
     "../assets/source/model.gltf",
 
-    function ( obj ) {
-        scene.load( obj )
-    }
+    function ( gltf ) {
+        const GLTFmodel = gltf.scene;
+        GLTFmodel.position.set( 2,-5, 0)
+		scene.add( GLTFmodel );
+
+		gltf.animations; // Array<THREE.AnimationClip>
+		gltf.scene; // THREE.Group
+		gltf.scenes; // Array<THREE.Group>
+		gltf.cameras; // Array<THREE.Camera>
+		gltf.asset; // Object
+
+	},
 )
 
 //box geometry
